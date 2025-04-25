@@ -19,6 +19,12 @@ mongoose.connect(process.env.DB_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
 
+
+// Route par défaut pour vérifier que le serveur fonctionne
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Bienvenue sur l\'API Mon Mentor !' });
+});
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
