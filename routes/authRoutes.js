@@ -35,7 +35,17 @@ router.post('/register', async (req, res) => {
 
   try {
     await user.save();
-    res.status(201).json({ message: "Utilisateur créé avec succès" });
+    res.status(201).json({
+       message: "Utilisateur créé avec succès",
+       user: {
+        id: user._id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        role: user.role,
+        createdAt: user.createdAt
+      }
+     });
   } catch (err) {
     res.status(500).json({ message: "Erreur lors de l'enregistrement." });
   }
