@@ -7,10 +7,10 @@ const jwt = require('jsonwebtoken');
 
 // Route pour s'enregistrer
 router.post('/register', async (req, res) => {
-  const { firstname, lastname, email, password, role } = req.body;
+  const { firstName, lastName, email, password, role } = req.body;
 
   // Vérification des champs
-  if (!firstname || !lastname || !email || !password || !role) {
+  if (!firstName || !lastName || !email || !password || !role) {
     return res.status(400).json({ message: "Tous les champs sont obligatoires." });
   }
 
@@ -26,8 +26,8 @@ router.post('/register', async (req, res) => {
 
   // Création du nouvel utilisateur
   const user = new User({
-    firstname,
-    lastname,
+    firstName,
+    lastName,
     email,
     password: hashedPassword,
     role
@@ -39,8 +39,8 @@ router.post('/register', async (req, res) => {
        message: "Utilisateur créé avec succès",
        user: {
         id: user._id,
-        firstname: user.firstname,
-        lastname: user.lastname,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
         role: user.role,
         createdAt: user.createdAt

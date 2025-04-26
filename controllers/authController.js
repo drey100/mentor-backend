@@ -4,9 +4,9 @@ const User = require('../models/User');
 
 exports.register = async (req, res) => {
   try {
-    const { firstname, lastname, email, password, role } = req.body;
+    const { firstName, lastName, email, password, role } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ firstname, lastname, email, password: hashedPassword, role });
+    const user = new User({ firstName, lastName, email, password: hashedPassword, role });
     await user.save();
     res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
     if (!valid) return res.status(401).json({ message: 'Invalid password' });
 
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    res.json({ token, user: { firstname: user.firstname, lastname: user.lastname, email: user.email, role: user.role } });
+    res.json({ token, user: { firstName: user.firstName, lastname: user.lastname, email: user.email, role: user.role } });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
